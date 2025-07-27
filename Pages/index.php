@@ -1,6 +1,8 @@
 <?php
     session_start();
     require_once '../PHP/affichage.php';
+    require_once '../PHP/acces.php';
+    acces("Acceuil");
 ?>
 
 <!DOCTYPE HTML>
@@ -12,7 +14,7 @@
 
     <body>
         <?php
-            afficheBarre();
+            afficheBarre("Acceuil");
         ?>
 
         <div class="paragraphe">
