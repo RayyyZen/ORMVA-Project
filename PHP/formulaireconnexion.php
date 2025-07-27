@@ -16,7 +16,7 @@
     if($utilisateur === false){
         header("location: ../Pages/connexion.php?email=".$_POST['email']."&erreur=inexistant");
     }
-    else if($utilisateur['mdp'] != $_POST['mdp']){
+    else if(!password_verify($_POST['mdp'],$utilisateur['mdp'])){//Toujours mettre en premier argument le mot de passe non hache
         header("location: ../Pages/connexion.php?email=".$_POST['email']."&erreur=mdp");
     }
     else{
@@ -29,8 +29,15 @@
         $_SESSION['mdp'] = $utilisateur['mdp'];
         $_SESSION['telephone'] = $utilisateur['telephone'];
         $_SESSION['dateinscription'] = $utilisateur['dateinscription'];
-        $_SESSION['dateconnexion'] = $utilisateur['dateconnexion'];
-        
+        $_SESSION['dateconnexion'] = date("Y-m-j H:i:s");
+
+        $sql = "UPDATE utilisateurs SET dateconnexion = :dateconnexion WHERE id = :id";
+        $statement = $mysqldb->prepare($sql);
+        $statement->execute([
+            ':dateconnexion' => $_SESSION['dateconnexion'],
+            'id' => $_SESSION['id'],
+        ]);
+
         header("location: ../Pages/index.php");
     }
 ?>
