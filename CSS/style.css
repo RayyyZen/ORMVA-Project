@@ -1,0 +1,131 @@
+body {
+    background-image: url("../Data/fondecran.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.barre {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 1000;
+    background-color: #edf9d1;
+    border-bottom: 1px solid black;
+}
+
+.icones {
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin: 0px 26px 0px auto;
+    gap: 1%;
+}
+
+.lienlogo, .lienlogoicone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 98%;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.lienlogoicone {
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 8px;
+}
+
+.lienlogoicone:hover {
+    transform: scale(1.1);
+    background-color: black;
+}
+
+.lienlogoicone:hover .icone, .lienlogoicone:hover .iconeicone {
+    color: #edf9d1;
+}
+
+.logo {
+    height: 100%;
+    width: auto;
+}
+
+.titre, .icone {
+    color: #50ab3c;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.icone {
+    color: black;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.iconeicone {
+    color: black;
+    font-size: 25px;
+}
+
+@media (max-width:800px) {
+    .texte {
+        display: none;/*Pour ne pas afficher un élément*/
+    }
+}
+
+.paragraphe, .titreparagraphe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: auto;
+    margin: 110px auto 2px auto;
+    padding: 5px;
+    border-radius: 20px;
+    color: black;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media (max-width:900px) {
+    .paragraphe, .titreparagraphe {
+        width: 70%;
+    }
+}
+
+.paragraphe {
+    flex-direction: column;
+}
+
+.titreparagraphe {
+    color: #50ab3c;
+    font-size: 35px;
+    margin: 0px 0px 15xpx 0px;
+    text-decoration: underline;
+}
+
+.liendemande {
+    text-decoration: none;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: #50ab3c;
+    color: black;
+    margin-top: 18px;
+    padding: 7px;
+}
+
+.liendemande:hover {
+    transform: scale(1.1);
+    background-color: black;
+    color: #edf9d1;
+}
