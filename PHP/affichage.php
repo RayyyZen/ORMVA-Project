@@ -8,10 +8,12 @@
         echo '<link rel="icon" type="image/png" href="../Data/logoAvecTitre.png">';
         echo '<link id="css" rel="stylesheet" type="text/css" href="../CSS/style.css">';
         echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">';
-        if($page == "Connexion" || $page == "Inscription"){
+        if($page == "Connexion" || $page == "Inscription" || $page == "Compte"){
             echo '<script src="../JavaScript/mdp.js" type="text/javascript"></script>';
         }
-        echo '</head>';
+        if($page == "Compte"){
+            echo '<script src="../JavaScript/informations.js" type="text/javascript"></script>';
+        }
     }
 
     function afficheBarre($page){
