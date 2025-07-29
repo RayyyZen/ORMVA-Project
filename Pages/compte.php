@@ -30,7 +30,7 @@
                         <button hidden type="button" id="sauvegardercivilite" onclick="sauvegarder('civilite','sauvegardercivilite','annulercivilite','modifiercivilite','chargementcivilite');"><i class="fa-solid fa-floppy-disk iconecompte"></i></button>
                         <button hidden type="button" id="annulercivilite" onclick="annuler('civilite','sauvegardercivilite','annulercivilite','modifiercivilite','chargementcivilite');"><i class="fa-solid fa-xmark iconecompte"></i></button>
                         <button type="button" id="modifiercivilite" onclick="modifier('civilite','sauvegardercivilite','annulercivilite','modifiercivilite','chargementcivilite')"><i class="fa-solid fa-pencil iconecompte"></i></button>
-                        <button type="button" id="chargementcivilite" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
+                        <button hidden type="button" id="chargementcivilite" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
                     </div>
 
                     <label for="nom">Nom</label>
@@ -39,7 +39,7 @@
                         <button hidden type="button" id="sauvegardernom" onclick="sauvegarder('nom','sauvegardernom','annulernom','modifiernom','chargementnom');"><i class="fa-solid fa-floppy-disk iconecompte"></i></button>
                         <button hidden type="button" id="annulernom" onclick="annuler('nom','sauvegardernom','annulernom','modifiernom','chargementnom');"><i class="fa-solid fa-xmark iconecompte"></i></button>
                         <button type="button" id="modifiernom" onclick="modifier('nom','sauvegardernom','annulernom','modifiernom','chargementnom');"><i class="fa-solid fa-pencil iconecompte"></i></button>
-                        <button type="button" id="chargementnom" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
+                        <button hidden type="button" id="chargementnom" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
                     </div>
 
                     <label for="prenom">Prenom</label>
@@ -47,8 +47,8 @@
                         <input type="text" name="prenom" id="prenom" class="inputformulaire" placeholder="Zen" pattern="^[A-Za-z]+$" maxlength="29" value="<?php echo($_SESSION['prenom']) ?>" data-extra="<?php echo($_SESSION['prenom']) ?>" required disabled>
                         <button hidden type="button" id="sauvegarderprenom" onclick="sauvegarder('prenom','sauvegarderprenom','annulerprenom','modifierprenom','chargementprenom');"><i class="fa-solid fa-floppy-disk iconecompte"></i></button>
                         <button hidden type="button" id="annulerprenom" onclick="annuler('prenom','sauvegarderprenom','annulerprenom','modifierprenom','chargementprenom');"><i class="fa-solid fa-xmark iconecompte"></i></button>
-                        <button type="button" id="modifierprenom" onclick="modifier('prenom','sauvegarderprenom','annulerpenom','modifierprenom','chargementprenom');"><i class="fa-solid fa-pencil iconecompte"></i></button>
-                        <button type="button" id="chargementprenom" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
+                        <button type="button" id="modifierprenom" onclick="modifier('prenom','sauvegarderprenom','annulerprenom','modifierprenom','chargementprenom');"><i class="fa-solid fa-pencil iconecompte"></i></button>
+                        <button hidden type="button" id="chargementprenom" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
                     </div>
 
                     <label for="email">Adresse mail</label>
@@ -57,23 +57,19 @@
                         <button hidden type="button" id="sauvegarderemail" onclick="sauvegarder('email','sauvegarderemail','annuleremail','modifieremail','chargementemail');"><i class="fa-solid fa-floppy-disk iconecompte"></i></button>
                         <button hidden type="button" id="annuleremail" onclick="annuler('email','sauvegarderemail','annuleremail','modifieremail','chargementemail');"><i class="fa-solid fa-xmark iconecompte"></i></button>
                         <button type="button" id="modifieremail" onclick="modifier('email','sauvegarderemail','annuleremail','modifieremail','chargementemail');"><i class="fa-solid fa-pencil iconecompte"></i></button>
-                        <button type="button" id="chargementemail" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
+                        <button hidden type="button" id="chargementemail" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
                     </div>
-                    <?php
-                        if(isset($_GET['email']) && isset($_GET['erreur']) && $_GET['erreur'] == "existant"){
-                            echo '<div class="erreur">Cet email est lié à un autre compte !</div>';
-                        }
-                    ?>
+                    <div hidden id="erreur" class="erreur">Cet email est lié à un autre compte !</div>
 
                     <label for="mdp">Mot de passe</label>
                     <div class="groupe">
-                        <input type="password" name="mdp" id="mdp" class="inputformulaire" placeholder="Mot de passe" value="0000000000" required disabled>
+                        <input type="password" name="mdp" id="mdp" class="inputformulaire" placeholder="Mot de passe" value="0000000000" data-extra="0000000000" required disabled>
                         <button hidden type="button" onclick="opmdp('cacher','mdp','buttoncache','buttonmontre');" class="iconeformulaire" id="buttoncache"><i class="fa-solid fa-face-laugh"></i></button>
                         <button hidden type="button" onclick="opmdp('montrer','mdp','buttoncache','buttonmontre');" class="iconeformulaire" id="buttonmontre"><i class="fa-solid fa-face-laugh-squint"></i></button>
                         <button hidden type="button" id="sauvegardermdp" onclick="sauvegarder('mdp','sauvegardermdp','annulermdp','modifiermdp','chargementmdp');"><i class="fa-solid fa-floppy-disk iconecompte"></i></button>
                         <button hidden type="button" id="annulermdp" onclick="annuler('mdp','sauvegardermdp','annulermdp','modifiermdp','chargementmdp');"><i class="fa-solid fa-xmark iconecompte"></i></button>
                         <button type="button" id="modifiermdp" onclick="modifier('mdp','sauvegardermdp','annulermdp','modifiermdp','chargementmdp');"><i class="fa-solid fa-pencil iconecompte"></i></button>
-                        <button type="button" id="chargementmdp" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
+                        <button hidden type="button" id="chargementmdp" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
                     </div>
 
                     <label for="telephone">Telephone</label>
@@ -82,7 +78,7 @@
                         <button hidden type="button" id="sauvegardertelephone" onclick="sauvegarder('telephone','sauvegardertelephone','annulertelephone','modifiertelephone','chargementtelephone');"><i class="fa-solid fa-floppy-disk iconecompte"></i></button>
                         <button hidden type="button" id="annulertelephone" onclick="annuler('telephone','sauvegardertelephone','annulertelephone','modifiertelephone','chargementtelephone');"><i class="fa-solid fa-xmark iconecompte"></i></button>
                         <button type="button" id="modifiertelephone" onclick="modifier('telephone','sauvegardertelephone','annulertelephone','modifiertelephone','chargementtelephone');"><i class="fa-solid fa-pencil iconecompte"></i></button>
-                        <button type="button" id="chargementtelephone" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
+                        <button hidden type="button" id="chargementtelephone" disabled><i class="fas fa-spinner fa-spin active iconecompte"></i></button>
                     </div>
 
                     <label for="inscription">Date d'inscription</label>
@@ -95,10 +91,16 @@
                         <input type="text" name="connexion" id="connexion" class="inputformulaire" value="<?php echo($_SESSION['dateconnexion']) ?>" disabled>
                     </div>
 
-                    <input hidden type="submit" name="save" id="save" value="Enregistrer" class="submitformulaire">
-                    <a href="../Pages/mesdemandes.php" class="lienformulaire">Voir mes demandes !</a>
+                    <div class="groupe fin">
+                        <a href="../Pages/mesdemandes.php" class="compteformulaire">Voir mes demandes</a>
+                        <button type="button" class="compteformulaire backred" onclick="supprimer();">Supprimer mon compte</button>
+                    </div>
                 </div>
             </fieldset>
         </form>
     </body>
+
+    <script type="text/javascript">
+        window.addEventListener("load", civilite);
+    </script>
 </html>

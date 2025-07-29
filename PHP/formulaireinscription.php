@@ -24,6 +24,7 @@
         $_SESSION['email'] = $_POST['email'];
         $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         $_SESSION['telephone'] = $_POST['telephone'];
+        date_default_timezone_set('Africa/Casablanca');
         $_SESSION['dateinscription'] = date("Y-m-j H:i:s");
         $_SESSION['dateconnexion'] = date("Y-m-j H:i:s");
 

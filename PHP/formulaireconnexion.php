@@ -29,6 +29,7 @@
         $_SESSION['mdp'] = $utilisateur['mdp'];
         $_SESSION['telephone'] = $utilisateur['telephone'];
         $_SESSION['dateinscription'] = $utilisateur['dateinscription'];
+        date_default_timezone_set('Africa/Casablanca');
         $_SESSION['dateconnexion'] = date("Y-m-j H:i:s");
 
         $sql = "UPDATE utilisateurs SET dateconnexion = :dateconnexion WHERE id = :id";
