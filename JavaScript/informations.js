@@ -1,3 +1,15 @@
+function buttonsDisabled(bool){
+    var input = document.querySelectorAll("input, select");
+    var button;
+    var i;
+    for(i=0;i<input.length;i++){
+        button = document.getElementById("modifier" + input[i].id);
+        if(button != null){
+            button.disabled = bool;
+        }
+    }
+}
+
 function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){
     if(window.XMLHttpRequest){
         var xhr = new XMLHttpRequest();
@@ -13,6 +25,8 @@ function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){
         var idmodifier = document.getElementById(modifier);
         var idchargement = document.getElementById(chargement);
         var erreur = document.getElementById("erreur");
+
+        buttonsDisabled(false);
 
         if(xhr.readyState == 4){
             idmodifier.hidden = false;
@@ -64,6 +78,8 @@ function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){
 }
 
 function annuler(champ,sauvegarder,annuler,modifier,chargement){
+    buttonsDisabled(false);
+
     var idchamp = document.getElementById(champ);
     var idsauvegarder = document.getElementById(sauvegarder);
     var idannuler = document.getElementById(annuler);
@@ -88,6 +104,8 @@ function modifier(champ,sauvegarder,annuler,modifier,chargement){
             return;
         }
     }
+
+    buttonsDisabled(true);
 
     var idchamp = document.getElementById(champ);
     var idsauvegarder = document.getElementById(sauvegarder);
@@ -124,6 +142,16 @@ function select(){
     }
 }
 
+function buttonsDisabledAdmin(bool){
+    var input = document.querySelectorAll("input, select, button, submit");
+    var i;
+    for(i=0;i<input.length;i++){
+        if(input[i].id.split('_')[0] == "modifier"){
+            input[i].disabled = bool;
+        }
+    }
+}
+
 function sauvegarderAdmin(id){
     var form = document.querySelector("form.tab");
     
@@ -154,6 +182,8 @@ function sauvegarderAdmin(id){
             inputs[2].hidden = false;
             inputs[3].hidden = true;
 
+            buttonsDisabledAdmin(false);
+
             for(i=5;i<11;i++){
                 inputs[i].disabled = true;
                 inputs[i].parentNode.classList.add('nepasremplir');
@@ -161,11 +191,15 @@ function sauvegarderAdmin(id){
             }
 
             if(xhr.status == 200 && xhr.responseText != "email"){
+                inputs[5].classList.remove(inputs[5].dataset.extra);
+                inputs[5].classList.add(inputs[5].value);
                 for(i=5;i<11;i++){
                     inputs[i].dataset.extra = inputs[i].value;
                 }
             }
             else{
+                inputs[5].classList.remove(inputs[5].value);
+                inputs[5].classList.add(inputs[5].dataset.extra);
                 for(i=5;i<11;i++){
                     inputs[i].value = inputs[i].dataset.extra;
                 }
@@ -212,6 +246,8 @@ function annulerAdmin(id){
         }
     }
 
+    buttonsDisabledAdmin(false);
+
     inputs[0].hidden = true;
     inputs[1].hidden = true;
     inputs[2].hidden = false;
@@ -240,6 +276,8 @@ function modifierAdmin(id){
             inputs.push(input[i]);
         }
     }
+
+    buttonsDisabledAdmin(true);
 
     inputs[0].hidden = false;
     inputs[1].hidden = false;

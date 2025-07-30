@@ -375,3 +375,15 @@ button {
 .margin {
     margin-bottom: 5px;
 }
+
+.admin {
+    color: #0d5600;
+}
+
+.utilisateur {
+    color: #004b58f1;
+}
+
+.banni {
+    color: #520000;
+}

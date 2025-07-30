@@ -24,11 +24,15 @@
                 <div class="titre">ORMVASM</div>
             </a>
             <div class="icones">
-                <a href="../Pages/demande.php" class="lienlogoicone">
-                    <i class="fa-solid fa-envelope iconeicone"></i>
-                    <div class="icone texte">Demande</div>
-                </a>
         ';
+        if(!isset($_SESSION['role']) || (isset($_SESSION['role']) && $_SESSION['role'] != "banni")){
+            echo '
+                    <a href="../Pages/demande.php" class="lienlogoicone">
+                        <i class="fa-solid fa-envelope iconeicone"></i>
+                        <div class="icone texte">Demande</div>
+                    </a>
+            ';
+        }
         if(!isset($_SESSION['id'])){
             if($page != "Inscription" && $page != "Connexion"){
                 echo '
@@ -89,6 +93,33 @@
                 <th>Inscription</th>
                 <th>Derniere connexion</th>
               </tr>';
+        $value = [
+            "banni" => 0,
+            "utilisateur" => 1,
+            "admin" => 2
+        ];
+        $i=0;
+        foreach($utilisateurs as &$util1){
+            foreach($utilisateurs as &$util2){
+                if($i == 0){
+                    if($_SESSION['id'] == $util2['id']){
+                        $tmp = $util1;
+                        $util1 = $util2;
+                        $util2 = $tmp;
+                    }
+                }
+                else{
+                    $role1 = $util1['role'];
+                    $role2 = $util2['role'];
+                    if($value["$role2"] < $value["$role1"]){
+                        $tmp = $util1;
+                        $util1 = $util2;
+                        $util2 = $tmp;
+                    }
+                }
+            }
+            $i=1;
+        }
         foreach($utilisateurs as $utilisateur){
             echo '<tr>';
             echo '<td class="nepasremplir">
@@ -105,7 +136,7 @@
             echo '</td>';
             echo '<td class="nepasremplir"><input type="text" name="id_'.$utilisateur['id'].'" id="id_'.$utilisateur['id'].'" value="'.$utilisateur['id'].'" data-extra="'.$utilisateur['id'].'" disabled></td>';
             echo '<td class="nepasremplir">
-                    <select name="role_'.$utilisateur['id'].'" id="role_'.$utilisateur['id'].'"" data-extra="'.$utilisateur['role'].'" required disabled>
+                    <select name="role_'.$utilisateur['id'].'" id="role_'.$utilisateur['id'].'"" data-extra="'.$utilisateur['role'].'" class="'.$utilisateur['role'].'" required disabled>
                         <option value="admin">Admin</option>
                         <option value="utilisateur">Utilisateur</option>
                         <option value="banni">Banni</option>

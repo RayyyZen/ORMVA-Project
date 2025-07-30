@@ -9,7 +9,7 @@
         else if(isset($_SESSION['role']) && $_SESSION['role'] != "banni" && $page == "Bannissement"){
             header("location: ../Pages/index.php");
         }
-        else if(isset($_SESSION['role']) && $_SESSION['role'] == "banni" && $page != "Bannissement"){
+        else if(isset($_SESSION['role']) && $_SESSION['role'] == "banni" && $page != "Bannissement" && $page != "Compte"){
             header("location: ../Pages/bannissement.php");
         }
     }

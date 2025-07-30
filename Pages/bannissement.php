@@ -17,5 +17,9 @@
             afficheBarre("Bannissement");
         ?>
 
+        <div class="paragraphe">
+            <div class="titreparagraphe">Attention !</div>
+            Ce compte est banni !!! <br><br> Veillez contacter votre responsable pour plus d'informations.
+        </div>
     </body>
 </html>
