@@ -12,6 +12,7 @@
         ':email' => $_POST['email'],
     ]);
     $utilisateur = $statement->fetch(PDO::FETCH_ASSOC);
+    //Check si le mail n'est pas lié à un autre compte
 
     if($utilisateur !== false){
         header("location: ../Pages/inscription.php?civilite=".$_POST['civilite']."&nom=".$_POST['nom']."&prenom=".$_POST['prenom']."&email=".$_POST['email']."&telephone=".$_POST['telephone']."&erreur=existant");
@@ -43,6 +44,7 @@
         ]);
 
         $_SESSION['id'] = $mysqldb->lastInsertId();
+        //Pour mettre directement le dernier id sans COUNT(*) tous les utilisateurs
 
         header("location: ../Pages/index.php");
     }

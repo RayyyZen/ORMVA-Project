@@ -387,3 +387,15 @@ button {
 .banni {
     color: #520000;
 }
+
+.danger {
+    color: #ff5d5df1;
+    padding: 10px;
+    border: 2px solid #ff5d5df1;
+    text-decoration: underline;
+}
+
+.dangertext {
+    color: #ff5d5df1;
+    text-decoration: underline;
+}

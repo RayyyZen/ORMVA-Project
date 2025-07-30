@@ -9,6 +9,7 @@
     $mysqldb = connexionDB();
 
     $sql = "SELECT * FROM utilisateurs WHERE email = :email AND id != :id";
+    //Check si le mail n'est pas lié à un autre compte
     $statement = $mysqldb->prepare($sql);
     $statement->execute([
         ':email' => $_POST['email'],
@@ -35,7 +36,7 @@
 
     date_default_timezone_set('Africa/Casablanca');
     $date = date("Y-m-d H:i:s");
-    
+
     $sql = "UPDATE utilisateurs SET civilite = :civilite, nom = :nom, prenom = :prenom, email = :email, mdp = :mdp, telephone = :telephone, dateconnexion = :dateconnexion WHERE id = :id";
     $statement = $mysqldb->prepare($sql);
     $statement->execute([

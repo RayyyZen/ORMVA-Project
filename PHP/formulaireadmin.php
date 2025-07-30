@@ -9,6 +9,7 @@
     $mysqldb = connexionDB();
 
     $sql = "SELECT * FROM utilisateurs WHERE email = :email AND id != :id";
+    //Check si le mail n'est pas lié à un autre compte
     $statement = $mysqldb->prepare($sql);
     $statement->execute([
         ':email' => $_POST['email'],

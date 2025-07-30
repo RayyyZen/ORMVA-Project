@@ -1,4 +1,4 @@
-function buttonsDisabled(bool){
+function buttonsDisabled(bool){//Fonction qui active ou desactive tous les boutons modifier de la page informations
     var input = document.querySelectorAll("input, select");
     var button;
     var i;
@@ -10,7 +10,15 @@ function buttonsDisabled(bool){
     }
 }
 
-function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){
+function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){//Fonction qui sauvegarde les modifications faites sur un champ de la page d'informations
+    var form = document.querySelector("form");
+    if (!form.checkValidity()) {
+        form.reportValidity(); // Affiche les erreurs HTML
+        return;
+    }
+    //Avant de sauvegarder ca checke les erreurs dues aux attributs de la balise input comme le regex et les maxlength ...
+
+
     if(window.XMLHttpRequest){
         var xhr = new XMLHttpRequest();
     }
@@ -26,11 +34,12 @@ function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){
         var idchargement = document.getElementById(chargement);
         var erreur = document.getElementById("erreur");
 
-        buttonsDisabled(false);
-
         if(xhr.readyState == 4){
             idmodifier.hidden = false;
             idchargement.hidden = true;
+
+            buttonsDisabled(false);
+            //Pour réactiver les boutons modifier de chaque champ
 
             if(champ == "mdp"){
                 idchamp.value = idchamp.dataset.extra;
@@ -65,7 +74,7 @@ function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){
     for(i=0;i<input.length;i++){
         chaine = chaine + input[i].name + "=" + input[i].value + "&";
     }
-    if(champ == "mdp"){
+    if(champ == "mdp"){//Pour savoir s'il y a eu un changement de mot de passe ou pas
         chaine += "changementmdp=oui";
     }
     else{
@@ -77,8 +86,9 @@ function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){
     xhr.send(chaine);
 }
 
-function annuler(champ,sauvegarder,annuler,modifier,chargement){
+function annuler(champ,sauvegarder,annuler,modifier,chargement){//Fonction qui annule les modifications faites sur un champ de la page d'informations
     buttonsDisabled(false);
+    //Pour réactiver les boutons modifier de chaque champ
 
     var idchamp = document.getElementById(champ);
     var idsauvegarder = document.getElementById(sauvegarder);
@@ -102,10 +112,12 @@ function modifier(champ,sauvegarder,annuler,modifier,chargement){
         button = document.getElementById("modifier" + input[i].id);
         if(button != null && button.hidden == true){
             return;
+            //Pour quitter la fonction au cas où un autre champ est déjà entrain d'être modifié
         }
     }
 
     buttonsDisabled(true);
+    //Pour désactiver tous les boutons modifier
 
     var idchamp = document.getElementById(champ);
     var idsauvegarder = document.getElementById(sauvegarder);
@@ -123,18 +135,14 @@ function modifier(champ,sauvegarder,annuler,modifier,chargement){
     idmodifier.hidden = true;
 }
 
-function supprimer(){
+function supprimer(){//Fonction qui affiche une annonce afin de confirmer la suppression du compte de l'utilisateur connecté
     if(window.confirm("Souhaitez-vous vraiment supprimer votre compte ? Cette opération est irréversible !")){
         window.location.href = "../PHP/suppression.php";
+        //Envoi vers le script suppression.php pour supprimer l'utilisateur de la base de données
     }
 }
 
-function civilite(){
-    var civilite = document.getElementById("civilite");
-    civilite.value = civilite.dataset.extra;
-}
-
-function select(){
+function select(){//Fonction qui remplit tous les select avec leurs vraies valeurs (Chose qui ne peut pas etre faite en php comme avec les autres inputs)
     var select = document.getElementsByTagName("select");
     var i;
     for(i=0;i<select.length;i++){
@@ -142,7 +150,7 @@ function select(){
     }
 }
 
-function buttonsDisabledAdmin(bool){
+function buttonsDisabledAdmin(bool){//Fonction qui active ou desactive tous les boutons modifier de la page admin
     var input = document.querySelectorAll("input, select, button, submit");
     var i;
     for(i=0;i<input.length;i++){
@@ -152,13 +160,13 @@ function buttonsDisabledAdmin(bool){
     }
 }
 
-function sauvegarderAdmin(id){
-    var form = document.querySelector("form.tab");
-    
+function sauvegarderAdmin(id){//Fonction qui sauvegarde les modifications faites sur un champ de la page admin
+    var form = document.querySelector("form");
     if (!form.checkValidity()) {
-        form.reportValidity(); // Affiche les erreurs natives HTML
+        form.reportValidity(); // Affiche les erreurs HTML
         return;
     }
+    //Avant de sauvegarder ca checke les erreurs dues aux attributs de la balise input comme le regex et les maxlength ...
 
     if(window.XMLHttpRequest){
         var xhr = new XMLHttpRequest();
@@ -172,6 +180,7 @@ function sauvegarderAdmin(id){
     for(i=0;i<input.length;i++){
         if(input[i].id.split('_')[1] == id){
             inputs.push(input[i]);
+            //Pour regrouper les elements lies a l'utilisateur que je cherche
         }
     }
 
@@ -193,6 +202,7 @@ function sauvegarderAdmin(id){
             if(xhr.status == 200 && xhr.responseText != "email"){
                 inputs[5].classList.remove(inputs[5].dataset.extra);
                 inputs[5].classList.add(inputs[5].value);
+                //Il y a des classes "admin", "utilisateur" et "banni"
                 for(i=5;i<11;i++){
                     inputs[i].dataset.extra = inputs[i].value;
                 }
@@ -200,6 +210,7 @@ function sauvegarderAdmin(id){
             else{
                 inputs[5].classList.remove(inputs[5].value);
                 inputs[5].classList.add(inputs[5].dataset.extra);
+                //Il y a des classes "admin", "utilisateur" et "banni"
                 for(i=5;i<11;i++){
                     inputs[i].value = inputs[i].dataset.extra;
                 }
@@ -225,14 +236,13 @@ function sauvegarderAdmin(id){
         chaine = chaine + inputs[i].name.split('_')[0] + "=" + inputs[i].value + "&";
     }
     chaine = chaine + inputs[i].name.split('_')[0] + "=" + inputs[i].value;
-    console.log(chaine);
 
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     //Afin de pouvoir envoyer les données en Post sous la forme "a=1&b=2...."
     xhr.send(chaine);
 }
 
-function annulerAdmin(id){
+function annulerAdmin(id){//Fonction qui annule les modifications faites sur un champ de la page admin
     var input = document.querySelectorAll("input, select, button, submit");
     var inputs = new Array();
     var i;
@@ -243,6 +253,7 @@ function annulerAdmin(id){
     for(i=0;i<input.length;i++){
         if(input[i].id.split('_')[1] == id){
             inputs.push(input[i]);
+            //Pour regrouper les elements lies a l'utilisateur que je cherche
         }
     }
 
@@ -274,6 +285,7 @@ function modifierAdmin(id){
         }
         if(input[i].id.split('_')[1] == id){
             inputs.push(input[i]);
+            //Pour regrouper les elements lies a l'utilisateur que je cherche
         }
     }
 
@@ -290,11 +302,11 @@ function modifierAdmin(id){
     }
 }
 
-function affichepages(nbrlignes,numeropage){
+function affichepages(nbrlignes,numeropage){//Affiche un nombre fixe d'utilisateurs en fonction du numero de page
     var lignes = document.getElementsByTagName("tr");
     var i;
     var min=nbrlignes*(numeropage-1)+1, max=nbrlignes*numeropage+1;
-    for(i=1;i<lignes.length;i++){
+    for(i=1;i<lignes.length;i++){//i=0 c'est l'entete du tableau
         if(i>=min && i<max){
             lignes[i].hidden = false;
         }
@@ -304,6 +316,7 @@ function affichepages(nbrlignes,numeropage){
     }
     var pageactuelle = document.getElementById("pageactuelle");
     pageactuelle.value = numeropage;
+    //pageactuelle est un element html qui contient le numero de la page actuelle
     if(numeropage > 1){
         document.getElementById("gauche").disabled = false;
         document.getElementById("gauche").classList.add("numerobutton");
@@ -326,7 +339,7 @@ function affichepages(nbrlignes,numeropage){
     }
 
     id = 1;
-    while(document.getElementById(id)){
+    while(document.getElementById(id)){//Pour demarquer la page actuelle des autres pages visuellement
         if(id == numeropage){
             document.getElementById(id).classList.add("selectionne");
         }
@@ -337,12 +350,12 @@ function affichepages(nbrlignes,numeropage){
     }
 }
 
-function pagegauche(nbrlignes){
+function pagegauche(nbrlignes){//Fonction qui passe à la page de gauche (page admin)
     var pageactuelle = document.getElementById("pageactuelle");
     affichepages(nbrlignes,parseInt(pageactuelle.value)-1);
 }
 
-function pagedroite(nbrlignes){
+function pagedroite(nbrlignes){//Fonction qui passe à la page de droite (page admin)
     var pageactuelle = document.getElementById("pageactuelle");
     affichepages(nbrlignes,parseInt(pageactuelle.value)+1);
 }

@@ -3,7 +3,7 @@
         if(isset($_SESSION['id']) && ($page == "Connexion" || $page == "Inscription")){
             header("location: ../Pages/index.php");
         }
-        else if(!isset($_SESSION['id']) && ($page == "Compte" || $page == "Demande" || $page == "Admin")){
+        else if(!isset($_SESSION['id']) && ($page == "Compte" || $page == "Demande" || $page == "Admin" || $page == "Bannissement")){
             header("location: ../Pages/index.php");
         }
         else if(isset($_SESSION['role']) && $_SESSION['role'] != "banni" && $page == "Bannissement"){

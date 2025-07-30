@@ -14,7 +14,8 @@
 
     <body>
         <?php
-        $nbrlignes = 16;
+            $nbrlignes = 16;
+            
             afficheBarre("Admin");
             echo '<div class="groupe2">';
             echo '<div class="margin">';

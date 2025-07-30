@@ -18,8 +18,8 @@
         ?>
 
         <div class="paragraphe">
-            <div class="titreparagraphe">Attention !</div>
-            Ce compte est banni !!! <br><br> Veillez contacter votre responsable pour plus d'informations.
+            <div class="titreparagraphe dangertext">Attention !</div>
+            <br><div class="danger">Ce compte est banni !!!</div> <br><br> <div class="dangertext">Veillez contacter votre responsable pour plus d'informations.</div>
         </div>
     </body>
 </html>

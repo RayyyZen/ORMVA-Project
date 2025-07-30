@@ -101,6 +101,6 @@
     </body>
 
     <script type="text/javascript">
-        window.addEventListener("load", civilite);
+        window.addEventListener("load", select);
     </script>
 </html>

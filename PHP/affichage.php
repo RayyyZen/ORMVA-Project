@@ -5,9 +5,11 @@
         echo '<meta charset="UTF-8">';
         echo '<meta name="description" content="Office Régional de Mise en Valeur Agricole du Souss Massa">';
         echo '<meta name="author" content="ORMVASM">';
-        echo '<link rel="icon" type="image/png" href="../Data/logoAvecTitre.png">';
+        echo '<link rel="icon" type="image/png" href="../Data/logoSansTitre.png">';
+        //L'image à afficher comme logo de l'application web
         echo '<link id="css" rel="stylesheet" type="text/css" href="../CSS/style.css">';
         echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">';
+        //Pour pouvoir afficher les icones utilisés qui proviennent du site font-awesome
         if($page == "Connexion" || $page == "Inscription" || $page == "Compte"){
             echo '<script src="../JavaScript/mdp.js" type="text/javascript"></script>';
         }
@@ -79,6 +81,8 @@
         $statement = $mysqldb->prepare($sql);
         $statement->execute();
         $utilisateurs = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //Collecte de toutes les données des utilisateurs dans un tableau associatif
+
         echo '<form action="../PHP/formulaireadmin.php" method="POST" class="tab">';
         echo '<table class="tableadmin">';
         echo '<tr>
@@ -93,6 +97,7 @@
                 <th>Inscription</th>
                 <th>Derniere connexion</th>
               </tr>';
+
         $value = [
             "banni" => 0,
             "utilisateur" => 1,
@@ -101,7 +106,7 @@
         $i=0;
         foreach($utilisateurs as &$util1){
             foreach($utilisateurs as &$util2){
-                if($i == 0){
+                if($i == 0){//Pour mettre l'admin qui est connecté en première place de la page
                     if($_SESSION['id'] == $util2['id']){
                         $tmp = $util1;
                         $util1 = $util2;
@@ -160,7 +165,7 @@
         echo '</form>';
     }
 
-    function afficheNumeros($nbrlignes){
+    function afficheNumeros($nbrlignes){//Fonction qui affiche le nombre de pages de la page admin en fonction du nombre de lignes maximal sur chaque page
         require_once '../PHP/db.php';
         $mysqldb = connexionDB();
 
@@ -168,14 +173,18 @@
         $statement = $mysqldb->prepare($sql);
         $statement->execute();
         $nbrutilisateurs = $statement->fetchColumn();
+        //fetchColumn() donne le nombre d'utilisateurs directement
 
-        $nbrpages = $nbrutilisateurs / $nbrlignes;
+        $nbrpages = ceil($nbrutilisateurs / $nbrlignes);
+        //la fonction ceil() donne le plus petit entier supérieur au nombre passé en paramètre
         $i = 0;
         echo '<button disabled type="button" class="numero" id="gauche" onclick="pagegauche('.$nbrlignes.');"><i class="fa-solid fa-circle-left"></i></button>';
+        //Bouton pour passer à la page de gauche
         for($i=0;$i<$nbrpages;$i++){
             $j = $i+1;
             echo '<button type="button" class="chiffre" id="'.$j.'" onclick="affichepages('.$nbrlignes.','.$j.');">'.$j.'</button>';
         }
         echo '<button disabled type="button" class="numero" id="droite" onclick="pagedroite('.$nbrlignes.');"><i class="fa-solid fa-circle-right"></i></button>';
+        //Bouton pour passer à la page de droite
     }
 ?>
