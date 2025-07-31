@@ -13,8 +13,11 @@
         if($page == "Connexion" || $page == "Inscription" || $page == "Compte"){
             echo '<script src="../JavaScript/mdp.js" type="text/javascript"></script>';
         }
-        if($page == "Compte" || $page == "Admin"){
+        if($page == "Compte" || $page == "Admin" || $page == "Mesdemandes"){
             echo '<script src="../JavaScript/informations.js" type="text/javascript"></script>';
+        }
+        if($page == "Demande" || $page == "Voirdemande"){
+            echo '<script src="../JavaScript/demande.js" type="text/javascript"></script>';
         }
     }
 
@@ -165,17 +168,26 @@
         echo '</form>';
     }
 
-    function afficheNumeros($nbrlignes){//Fonction qui affiche le nombre de pages de la page admin en fonction du nombre de lignes maximal sur chaque page
+    function afficheNumeros($nbrlignes,$tableau){//Fonction qui affiche le nombre de pages en fonction du nombre de lignes maximal sur chaque page
         require_once '../PHP/db.php';
         $mysqldb = connexionDB();
 
-        $sql = "SELECT COUNT(*) FROM utilisateurs";
+        if($tableau == "utilisateurs"){
+            $sql = "SELECT COUNT(*) FROM utilisateurs";
+        }
+        else if($tableau == "demandes"){
+            $sql = "SELECT COUNT(*) FROM demandes";
+        }
+        else{
+            exit(5);
+        }
+
         $statement = $mysqldb->prepare($sql);
         $statement->execute();
-        $nbrutilisateurs = $statement->fetchColumn();
+        $nbr = $statement->fetchColumn();
         //fetchColumn() donne le nombre d'utilisateurs directement
 
-        $nbrpages = ceil($nbrutilisateurs / $nbrlignes);
+        $nbrpages = ceil($nbr / $nbrlignes);
         //la fonction ceil() donne le plus petit entier supérieur au nombre passé en paramètre
         $i = 0;
         echo '<button disabled type="button" class="numero" id="gauche" onclick="pagegauche('.$nbrlignes.');"><i class="fa-solid fa-circle-left"></i></button>';
@@ -186,5 +198,52 @@
         }
         echo '<button disabled type="button" class="numero" id="droite" onclick="pagedroite('.$nbrlignes.');"><i class="fa-solid fa-circle-right"></i></button>';
         //Bouton pour passer à la page de droite
+    }
+
+    function afficheDemandes(){
+        require_once '../PHP/db.php';
+        $mysqldb = connexionDB();
+
+        $sql = "SELECT * FROM demandes";
+        $statement = $mysqldb->prepare($sql);
+        $statement->execute();
+        $demandes = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //Collecte de toutes les données des demandes dans un tableau associatif
+
+        echo '<div class="tab">';
+        echo '<table class="tableadmin">';
+        echo '<tr>
+                <th></th>
+                <th>Id Demande</th>
+                <th>Id Utilisateur</th>
+                <th>Type</th>
+                <th>Statut</th>
+                <th>Date</th>
+              </tr>';
+
+        foreach($demandes as $demande){
+            echo '<tr>';
+            echo '<td class="nepasremplir">';
+            echo '<a class="lientableau" href="../Pages/voirdemande.php?id='.$demande['id'].'"><i class="fa-solid fa-circle-info"></i></a>';
+            echo '</td>';
+            echo '<td class="nepasremplir"><input type="text" value="'.$demande['id'].'" disabled></td>';
+            echo '<td class="nepasremplir"><input type="text" value="'.$demande['id_utilisateur'].'" disabled></td>';
+            echo '<td class="nepasremplir"><input type="text" value="'.$demande['type'].'" disabled></td>';
+            if($demande['statut'] == "En attente"){
+                $style = "attente";
+            }
+            else if($demande['statut'] == "Valide"){
+                $style = "valide";
+            }
+            else{
+                $style = "refuse";
+            }
+            echo '<td class="nepasremplir"><input type="text" class="'.$style.'" value="'.$demande['statut'].'" disabled></td>';
+            echo '<td class="nepasremplir"><input type="text" value="'.$demande['datedemande'].'" disabled></td>';
+            echo '</tr>';
+        }
+
+        echo '</table>';
+        echo '</div>';
     }
 ?>

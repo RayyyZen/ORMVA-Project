@@ -15,11 +15,11 @@
     <body>
         <?php
             $nbrlignes = 16;
-            
+
             afficheBarre("Admin");
             echo '<div class="groupe2">';
             echo '<div class="margin">';
-            afficheNumeros($nbrlignes);
+            afficheNumeros($nbrlignes,"utilisateurs");
             echo '</div>';
             echo '<div hidden id="erreur" class="erreur2"><i class="fa-solid fa-triangle-exclamation"></i> Cet email est lie a un autre compte !</div>';
             echo '</div>';
