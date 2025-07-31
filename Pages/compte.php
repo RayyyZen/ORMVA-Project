@@ -92,8 +92,8 @@
                     </div>
 
                     <div class="groupe fin">
-                        <a href="../Pages/mesdemandes.php" class="compteformulaire">Voir mes demandes</a>
-                        <button type="button" class="compteformulaire backred" onclick="supprimer();">Supprimer mon compte</button>
+                        <a href="../Pages/mesdemandes.php" id="voirmesdemandes" class="compteformulaire">Voir mes demandes</a>
+                        <button type="button" id="supprimercompte" class="compteformulaire backred" onclick="supprimer();">Supprimer mon compte</button>
                     </div>
                 </div>
             </fieldset>

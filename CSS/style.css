@@ -75,9 +75,27 @@ body {
     font-size: 25px;
 }
 
-@media (max-width:800px) {
+@media (max-width:820px) {
     .texte {
         display: none;/*Pour ne pas afficher un élément*/
+    }
+}
+
+@media (max-width:474px) {
+    #titresite {
+        display: none;/*Pour ne pas afficher un élément*/
+    }
+}
+
+@media (max-width:350px) {
+    .iconeicone {
+        font-size: 20px;/*Pour ne pas afficher un élément*/
+    }
+}
+
+@media (max-width:442px) {
+    #supprimercompte, #voirmesdemandes {
+        font-size: 14px;/*Pour ne pas afficher un élément*/
     }
 }
 
@@ -117,7 +135,7 @@ body {
 .liendemande {
     text-decoration: none;
     border: 2px solid black;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: #50ab3c;
     color: black;
     margin-top: 18px;
@@ -126,8 +144,18 @@ body {
 
 .liendemande:hover {
     transform: scale(1.1);
-    background-color: black;
-    color: #edf9d1;
+    background-color: #edf9d1;
+    color: black;
+    border: 2px solid black;
+}
+
+@media (max-width:460px) {
+    .paragraphe {
+        font-size: 15px;
+    }
+    .titreparagraphe {
+        font-size: 20px;
+    }
 }
 
 /*CONNEXION*/
@@ -169,7 +197,7 @@ body {
 }
 
 
-.inputformulaire, .submitformulaire, .compteformulaire, .textformulaire {
+.inputformulaire, .submitformulaire, .compteformulaire, .textformulaire, .selectstatut, .selectstatut select {
     width: 100%;
     border-radius: 3px;
     border: 1px solid black;
@@ -179,6 +207,16 @@ body {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
     background-color: #edf9d1;
+}
+
+.selectstatut, .selectstatut select {
+    font-size: 14px;
+    padding: 0px;
+    border-radius: 0px;
+    border: none;
+    cursor: pointer;
+    border: 1px solid black;
+    outline: none;
 }
 
 .lienformulaire {
@@ -194,11 +232,15 @@ body {
 .submitformulaire {
     background-color: #50ab3c;
     color: #edf9d1;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 5px;
+    padding: 10px;
     width: fit-content;
-    font-size: 18px;
+    font-size: 17px;
     cursor: pointer;
+}
+
+.submitformulaire:hover {
+    transform: scale(1.1);
 }
 
 @media (max-width:650px) {
@@ -408,6 +450,7 @@ button {
     background-color: #edf9d1;
     color: black;
     cursor: pointer;
+    width: 140px;
 }
 
 .inputradio:checked + label {
@@ -469,4 +512,18 @@ button {
 .refuser:checked + label {
     background-color: #ff7575;
     color: black;
+}
+
+.ajout {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    height: auto;
+    margin: 10px;
+    background-color: rgb(222, 50, 38);
+}
+
+.ajout:hover {
+    background-color: rgb(173, 38, 26);
 }

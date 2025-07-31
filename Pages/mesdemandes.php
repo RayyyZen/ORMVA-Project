@@ -32,5 +32,27 @@
         <?php
             echo 'window.addEventListener("load", () => affichepages('.$nbrlignes.',1));';
         ?>
+
+        function filtrer(){
+            var select = document.getElementsByTagName("select");
+            var lignes = document.getElementsByTagName("tr");
+            var i;
+            var chaine;
+            for(i=1;i<lignes.length;i++){
+                chaine = lignes[i].dataset.extra;
+                if((select[0].value == "vide" || chaine.split("_")[0] == select[0].value) && (select[1].value == "vide" || chaine.split("_")[1] == select[1].value)){
+                    lignes[i].hidden = false;
+                }
+                else{
+                    lignes[i].hidden = true;
+                }
+            }
+        }
+
+        var select = document.getElementsByTagName("select");
+        var i;
+        for(i=0;i<select.length;i++){
+            select[i].addEventListener("input", filtrer);
+        }
     </script>
 </html>

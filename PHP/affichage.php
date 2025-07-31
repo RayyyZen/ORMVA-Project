@@ -26,14 +26,22 @@
         <div class="barre">
             <a href="../Pages/index.php" class="lienlogo">
                 <img src="../Data/logoSansTitre" class="logo">
-                <div class="titre">ORMVASM</div>
+                <div class="titre" id="titresite">ORMVASM</div>
             </a>
             <div class="icones">
         ';
-        if(!isset($_SESSION['role']) || (isset($_SESSION['role']) && $_SESSION['role'] != "banni")){
+        if(isset($_SESSION['id'])){
             echo '
-                    <a href="../Pages/demande.php" class="lienlogoicone">
+                    <a href="../Pages/mesdemandes.php" class="lienlogoicone">
                         <i class="fa-solid fa-envelope iconeicone"></i>
+                        <div class="icone texte">Demandes</div>
+                    </a>
+            ';
+        }
+        if($page!="Demande" && (!isset($_SESSION['role']) || (isset($_SESSION['role']) && $_SESSION['role'] != "admin"))){
+            echo '
+                    <a href="../Pages/demande.php" class="lienlogoicone ajout">
+                        <i class="fa-solid fa-circle-plus iconeicone"></i>
                         <div class="icone texte">Demande</div>
                     </a>
             ';
@@ -204,30 +212,76 @@
         require_once '../PHP/db.php';
         $mysqldb = connexionDB();
 
-        $sql = "SELECT * FROM demandes";
-        $statement = $mysqldb->prepare($sql);
-        $statement->execute();
+        if($_SESSION['role'] == "admin"){
+            $sql = "SELECT * FROM demandes";
+            $statement = $mysqldb->prepare($sql);
+            $statement->execute();
+            //Collecte de toutes les données des demandes dans un tableau associatif
+        }
+        else{
+            $sql = "SELECT * FROM demandes WHERE id_utilisateur = :id";
+            $statement = $mysqldb->prepare($sql);
+            $statement->execute([
+                ':id' => $_SESSION['id'],
+            ]);
+        }
+
         $demandes = $statement->fetchAll(PDO::FETCH_ASSOC);
-        //Collecte de toutes les données des demandes dans un tableau associatif
 
         echo '<div class="tab">';
         echo '<table class="tableadmin">';
         echo '<tr>
                 <th></th>
-                <th>Id Demande</th>
-                <th>Id Utilisateur</th>
-                <th>Type</th>
-                <th>Statut</th>
+                <th>Id Demande</th>';
+        if($_SESSION['role'] == "admin"){
+            echo '<th>Id Utilisateur</th>';
+        }
+        echo '  <th class="selectstatut">
+                    <select name="type">
+                        <option value="vide">Type</option>
+                        <option value="intervention">Intervention</option>
+                        <option value="information">Information</option>
+                        <option value="materiel">Materiel</option>
+                    </select>
+                </th>
+                <th class="selectstatut">
+                    <select name="statut">
+                        <option value="vide">Statut</option>
+                        <option value="En attente" class="attente">En attente</option>
+                        <option value="Valide" class="valide">Valide</option>
+                        <option value="Refuse" class="refuse">Refuse</option>
+                    </select>
+                </th>
                 <th>Date</th>
               </tr>';
 
-        foreach($demandes as $demande){
+        if($demandes === false){
             echo '<tr>';
+            if($_SESSION['role'] == "admin"){
+                echo '<td class="nepasremplir">-</td>';
+            }
+            echo '
+                    <td class="nepasremplir">-</td>
+                    <td class="nepasremplir">-</td>
+                    <td class="nepasremplir">-</td>
+                    <td class="nepasremplir">-</td>
+                    <td class="nepasremplir">-</td>
+                </tr>
+            ';
+            return;
+        }
+
+        $ordreinverse = array_reverse($demandes);
+
+        foreach($ordreinverse as $demande){
+            echo '<tr data-extra="'.$demande['type'].'_'.$demande['statut'].'">';
             echo '<td class="nepasremplir">';
             echo '<a class="lientableau" href="../Pages/voirdemande.php?id='.$demande['id'].'"><i class="fa-solid fa-circle-info"></i></a>';
             echo '</td>';
             echo '<td class="nepasremplir"><input type="text" value="'.$demande['id'].'" disabled></td>';
-            echo '<td class="nepasremplir"><input type="text" value="'.$demande['id_utilisateur'].'" disabled></td>';
+            if($_SESSION['role'] == "admin"){
+                echo '<td class="nepasremplir"><input type="text" value="'.$demande['id_utilisateur'].'" disabled></td>';
+            }
             echo '<td class="nepasremplir"><input type="text" value="'.$demande['type'].'" disabled></td>';
             if($demande['statut'] == "En attente"){
                 $style = "attente";

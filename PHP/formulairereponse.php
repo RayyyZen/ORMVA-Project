@@ -7,7 +7,7 @@
     require_once '../PHP/db.php';
     $mysqldb = connexionDB();
 
-    $sql = "INSERT INTO demandes (reponse, statut) VALUES (:reponse, :statut) WHERE id = :id";
+    $sql = "UPDATE demandes SET reponse = :reponse, statut = :statut, datereponse = :datereponse WHERE id = :id";
     $statement = $mysqldb->prepare($sql);
 
     if($_POST['statutdemande'] == "valider"){
@@ -17,10 +17,12 @@
         $statut = "Refuse";
     }
 
+    date_default_timezone_set('Africa/Casablanca');
     $statement->execute([
         ':reponse' => $_POST['reponse'],
         ':statut' => $statut,
-        ':id' => $_POST['id'],
+        ':datereponse' => date("Y-m-j H:i:s"),
+        ':id' => intval($_POST['id']),
     ]);
 
     header("location: ../Pages/mesdemandes.php");
