@@ -256,18 +256,23 @@
               </tr>';
 
         if($demandes === false){
-            echo '<tr>';
-            if($_SESSION['role'] == "admin"){
-                echo '<td class="nepasremplir">-</td>';
-            }
-            echo '
-                    <td class="nepasremplir">-</td>
-                    <td class="nepasremplir">-</td>
-                    <td class="nepasremplir">-</td>
-                    <td class="nepasremplir">-</td>
-                    <td class="nepasremplir">-</td>
-                </tr>
-            ';
+            echo '<tr id="vide">';
+        }
+        else{
+            echo '<tr id="vide" hidden>';
+        }
+        if($_SESSION['role'] == "admin"){
+            echo '<td class="nepasremplir">-</td>';
+        }
+        echo '
+                <td class="nepasremplir">-</td>
+                <td class="nepasremplir">-</td>
+                <td class="nepasremplir">-</td>
+                <td class="nepasremplir">-</td>
+                <td class="nepasremplir">-</td>
+            </tr>
+        ';
+        if($demandes === false){
             return;
         }
 
@@ -282,7 +287,16 @@
             if($_SESSION['role'] == "admin"){
                 echo '<td class="nepasremplir"><input type="text" value="'.$demande['id_utilisateur'].'" disabled></td>';
             }
-            echo '<td class="nepasremplir"><input type="text" value="'.$demande['type'].'" disabled></td>';
+            $string = str_split($demande['type']);
+            $type = strtoupper($string[0]);
+            $i=0;
+            foreach($string as $s){
+                if($i!=0){
+                    $type = $type . $s;
+                }
+                $i = 1;
+            }
+            echo '<td class="nepasremplir"><input type="text" value="'.$type.'" disabled></td>';
             if($demande['statut'] == "En attente"){
                 $style = "attente";
             }

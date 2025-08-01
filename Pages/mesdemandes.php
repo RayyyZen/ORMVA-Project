@@ -38,14 +38,22 @@
             var lignes = document.getElementsByTagName("tr");
             var i;
             var chaine;
-            for(i=1;i<lignes.length;i++){
+            var compteur=0;
+            for(i=2;i<lignes.length;i++){
                 chaine = lignes[i].dataset.extra;
                 if((select[0].value == "vide" || chaine.split("_")[0] == select[0].value) && (select[1].value == "vide" || chaine.split("_")[1] == select[1].value)){
                     lignes[i].hidden = false;
+                    compteur++;
                 }
                 else{
                     lignes[i].hidden = true;
                 }
+            }
+            if(compteur == 0){
+                document.getElementById("vide").hidden = false;
+            }
+            else{
+                document.getElementById("vide").hidden = true;
             }
         }
 
@@ -54,5 +62,6 @@
         for(i=0;i<select.length;i++){
             select[i].addEventListener("input", filtrer);
         }
+        window.addEventListener("load", filtrer);
     </script>
 </html>
