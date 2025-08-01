@@ -302,17 +302,28 @@ function modifierAdmin(id){
     }
 }
 
-function affichepages(nbrlignes,numeropage){//Affiche un nombre fixe d'utilisateurs en fonction du numero de page
-    var lignes = document.getElementsByTagName("tr");
+function affichepages(tableau,nbrlignes,numeropage){//Affiche un nombre fixe d'utilisateurs en fonction du numero de page
+    var ligne = document.querySelectorAll("tr");
+    var lignes = new Array();
     var i;
-    var min=nbrlignes*(numeropage-1)+1, max=nbrlignes*numeropage+1;
+    var min=nbrlignes*(numeropage-1), max=nbrlignes*numeropage;
+    var compteur = 0;
+    for(i=0;i<ligne.length;i++){
+        if(tableau == "demandes" && ligne[i].hidden == false){
+            lignes.push(ligne[i]);
+        }
+        else if(tableau == "utilisateurs"){
+            lignes.push(ligne[i]);
+        }
+    }
     for(i=1;i<lignes.length;i++){//i=0 c'est l'entete du tableau
-        if(i>=min && i<max){
+        if(compteur >= min && compteur < max){
             lignes[i].hidden = false;
         }
         else{
             lignes[i].hidden = true;
         }
+        compteur++;
     }
     var pageactuelle = document.getElementById("pageactuelle");
     pageactuelle.value = numeropage;
@@ -327,7 +338,13 @@ function affichepages(nbrlignes,numeropage){//Affiche un nombre fixe d'utilisate
         document.getElementById("gauche").classList.add("numero");
         document.getElementById("gauche").classList.remove("numerobutton");
     }
-    if(max < lignes.length){
+    var id=1;
+    while(document.getElementById(id) && !document.getElementById(id).hidden){
+        id++;
+    }
+    id--;
+
+    if(numeropage < id){
         document.getElementById("droite").disabled = false;
         document.getElementById("droite").classList.add("numerobutton");
         document.getElementById("droite").classList.remove("numero");
@@ -350,12 +367,61 @@ function affichepages(nbrlignes,numeropage){//Affiche un nombre fixe d'utilisate
     }
 }
 
-function pagegauche(nbrlignes){//Fonction qui passe à la page de gauche (page admin)
+function pagegauche(tableau,nbrlignes){//Fonction qui passe à la page de gauche (page admin et mesdemandes)
     var pageactuelle = document.getElementById("pageactuelle");
-    affichepages(nbrlignes,parseInt(pageactuelle.value)-1);
+    if(tableau == "utilisateurs"){
+        affichepages(tableau,nbrlignes,parseInt(pageactuelle.value)-1);
+    }
+    else{
+        filtrer(nbrlignes,parseInt(pageactuelle.value)-1);
+    }
 }
 
-function pagedroite(nbrlignes){//Fonction qui passe à la page de droite (page admin)
+function pagedroite(tableau,nbrlignes){//Fonction qui passe à la page de droite (page admin et mesdemandes)
     var pageactuelle = document.getElementById("pageactuelle");
-    affichepages(nbrlignes,parseInt(pageactuelle.value)+1);
+    if(tableau == "utilisateurs"){
+        affichepages(tableau,nbrlignes,parseInt(pageactuelle.value)+1);
+    }
+    else{
+        filtrer(nbrlignes,parseInt(pageactuelle.value)+1);
+    }
+}
+
+function filtrer(nbrlignes,numeropage){
+    var select = document.getElementsByTagName("select");
+    var lignes = document.getElementsByTagName("tr");
+    var i;
+    var chaine;
+    var compteur=0;
+    for(i=2;i<lignes.length;i++){
+        chaine = lignes[i].dataset.extra;
+        if((select[0].value == "vide" || chaine.split("_")[0] == select[0].value) && (select[1].value == "vide" || chaine.split("_")[1] == select[1].value)){
+            lignes[i].hidden = false;
+            compteur++;
+        }
+        else{
+            lignes[i].hidden = true;
+        }
+    }
+    if(compteur == 0){
+        document.getElementById("vide").hidden = false;
+    }
+    else{
+        document.getElementById("vide").hidden = true;
+    }
+
+    var nbr = Math.ceil(compteur / nbrlignes);
+
+    var j = 1;
+    while(document.getElementById(j)){
+        if(j<=nbr){
+            document.getElementById(j).hidden = false;
+        }
+        else{
+            document.getElementById(j).hidden = true;
+        }
+        j++;
+    }
+
+    affichepages("demandes",nbrlignes,numeropage);
 }

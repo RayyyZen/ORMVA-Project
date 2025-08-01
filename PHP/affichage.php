@@ -195,16 +195,23 @@
         $nbr = $statement->fetchColumn();
         //fetchColumn() donne le nombre d'utilisateurs directement
 
+        $string = "'".$tableau."'";
+
         $nbrpages = ceil($nbr / $nbrlignes);
         //la fonction ceil() donne le plus petit entier supérieur au nombre passé en paramètre
         $i = 0;
-        echo '<button disabled type="button" class="numero" id="gauche" onclick="pagegauche('.$nbrlignes.');"><i class="fa-solid fa-circle-left"></i></button>';
+        echo '<button disabled type="button" class="numero" id="gauche" onclick="pagegauche('.$string.','.$nbrlignes.');"><i class="fa-solid fa-circle-left"></i></button>';
         //Bouton pour passer à la page de gauche
         for($i=0;$i<$nbrpages;$i++){
             $j = $i+1;
-            echo '<button type="button" class="chiffre" id="'.$j.'" onclick="affichepages('.$nbrlignes.','.$j.');">'.$j.'</button>';
+            if($tableau == "utilisateurs"){
+                echo '<button type="button" class="chiffre" id="'.$j.'" onclick="affichepages('.$string.','.$nbrlignes.','.$j.');">'.$j.'</button>';
+            }
+            else{
+                echo '<button type="button" class="chiffre" id="'.$j.'" onclick="filtrer('.$nbrlignes.','.$j.');">'.$j.'</button>';
+            }
         }
-        echo '<button disabled type="button" class="numero" id="droite" onclick="pagedroite('.$nbrlignes.');"><i class="fa-solid fa-circle-right"></i></button>';
+        echo '<button disabled type="button" class="numero" id="droite" onclick="pagedroite('.$string.','.$nbrlignes.');"><i class="fa-solid fa-circle-right"></i></button>';
         //Bouton pour passer à la page de droite
     }
 

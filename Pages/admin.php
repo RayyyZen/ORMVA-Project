@@ -31,7 +31,7 @@
     <script type="text/javascript">
         window.addEventListener("load", select);
         <?php
-            echo 'window.addEventListener("load", () => affichepages('.$nbrlignes.',1));';
+            echo 'window.addEventListener("load", () => affichepages("utilisateurs",'.$nbrlignes.',1));';
         ?>
     </script>
 </html>
