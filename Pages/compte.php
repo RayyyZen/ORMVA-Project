@@ -92,7 +92,16 @@
                     </div>
 
                     <div class="groupe fin">
-                        <a href="../Pages/mesdemandes.php" id="voirmesdemandes" class="compteformulaire">Voir mes demandes</a>
+                        <a href="../Pages/mesdemandes.php" id="voirmesdemandes" class="compteformulaire">
+                        <?php
+                            if($_SESSION['role'] == "admin"){
+                                echo 'Voir les demandes';
+                            }
+                            else{
+                                echo 'Voir mes demandes';
+                            }
+                        ?>
+                        </a>
                         <button type="button" id="supprimercompte" class="compteformulaire backred" onclick="supprimer();">Supprimer mon compte</button>
                     </div>
                 </div>

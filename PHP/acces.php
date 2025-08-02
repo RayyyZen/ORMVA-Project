@@ -6,6 +6,9 @@
         else if(!isset($_SESSION['id']) && ($page == "Compte" || $page == "Demande" || $page == "Admin" || $page == "Bannissement" || $page == "Mes demandes")){
             header("location: ../Pages/connexion.php");
         }
+        else if(isset($_SESSION['role']) && $_SESSION['role'] != "admin" && $page == "Admin"){
+            header("location: ../Pages/index.php");
+        }
         else if(isset($_SESSION['role']) && $_SESSION['role'] == "admin" && $page == "Demande"){
             header("location: ../Pages/mesdemandes.php");
         }

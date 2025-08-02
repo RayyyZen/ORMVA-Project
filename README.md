@@ -1,4 +1,4 @@
-<h1 align="center">🌱 ORMVA-Projet 🌱</h1>
+<h1 align="center">🌱 ORMVA-Project 🌱</h1>
 
 ![ORMVA](Data/ormvasmaccueil.png)
 
