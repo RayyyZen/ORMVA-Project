@@ -30,7 +30,7 @@
             </a>
             <div class="icones">
         ';
-        if(isset($_SESSION['id'])){
+        if(isset($_SESSION['role']) && $_SESSION['role'] != "banni"){
             echo '
                     <a href="../Pages/mesdemandes.php" class="lienlogoicone">
                         <i class="fa-solid fa-envelope iconeicone"></i>
@@ -38,7 +38,7 @@
                     </a>
             ';
         }
-        if($page!="Demande" && (!isset($_SESSION['role']) || (isset($_SESSION['role']) && $_SESSION['role'] != "admin"))){
+        if($page!="Demande" && (!isset($_SESSION['role']) || (isset($_SESSION['role']) && $_SESSION['role'] == "utilisateur"))){
             echo '
                     <a href="../Pages/demande.php" class="lienlogoicone ajout">
                         <i class="fa-solid fa-circle-plus iconeicone"></i>
