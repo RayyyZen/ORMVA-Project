@@ -19,6 +19,7 @@
 
     if($utilisateur !== false){
         echo "email";
+        //Ca veut dire que le mail est lié à un autre compte
         exit(0);
     }
 
@@ -29,12 +30,15 @@
     ]);
     $utilisateur = $statement->fetch(PDO::FETCH_ASSOC);
     $mdp = $utilisateur['mdp'];
+    //Pour obtenir le mot de passe haché de l'utilisateur
 
     if($_POST['changementmdp'] == "oui"){
         $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+        //Mettre le nouveau mot de passe haché si l'utilisateur l'a changé
     }
 
     date_default_timezone_set('Africa/Casablanca');
+    //Heure locale
     $date = date("Y-m-d H:i:s");
 
     $sql = "UPDATE utilisateurs SET civilite = :civilite, nom = :nom, prenom = :prenom, email = :email, mdp = :mdp, telephone = :telephone, dateconnexion = :dateconnexion WHERE id = :id";

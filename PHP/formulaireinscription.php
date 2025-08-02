@@ -16,6 +16,7 @@
 
     if($utilisateur !== false){
         header("location: ../Pages/inscription.php?civilite=".$_POST['civilite']."&nom=".$_POST['nom']."&prenom=".$_POST['prenom']."&email=".$_POST['email']."&telephone=".$_POST['telephone']."&erreur=existant");
+        //Les données en GET servent à préremplir les champs de la page inscription
     }
     else{
         $_SESSION['role'] = "utilisateur";
@@ -26,6 +27,7 @@
         $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         $_SESSION['telephone'] = $_POST['telephone'];
         date_default_timezone_set('Africa/Casablanca');
+        //Heure locale
         $_SESSION['dateinscription'] = date("Y-m-j H:i:s");
         $_SESSION['dateconnexion'] = date("Y-m-j H:i:s");
 
@@ -44,7 +46,7 @@
         ]);
 
         $_SESSION['id'] = $mysqldb->lastInsertId();
-        //Pour mettre directement le dernier id sans COUNT(*) tous les utilisateurs
+        //Pour avoir directement le dernier id sans COUNT(*) tous les utilisateurs
 
         header("location: ../Pages/index.php");
     }

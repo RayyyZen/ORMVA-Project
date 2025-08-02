@@ -2,7 +2,7 @@
     session_start();
     require_once '../PHP/affichage.php';
     require_once '../PHP/acces.php';
-    acces("Voirdemande");
+    acces("Voir demande");
 
     require_once '../PHP/db.php';
     $mysqldb = connexionDB();
@@ -34,12 +34,12 @@
 
 <html>
     <?php
-        afficheHead("Voirdemande");
+        afficheHead("Voir demande");
     ?>
 
     <body>
         <?php
-            afficheBarre("Voirdemande");
+            afficheBarre("Voir demande");
         ?>
 
         <form action="../PHP/formulairereponse.php" method="POST" onsubmit="return checkValidation();">

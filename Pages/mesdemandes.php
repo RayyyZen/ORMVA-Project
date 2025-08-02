@@ -2,21 +2,21 @@
     session_start();
     require_once '../PHP/affichage.php';
     require_once '../PHP/acces.php';
-    acces("Mesdemandes");
+    acces("Mes demandes");
 ?>
 
 <!DOCTYPE HTML>
 
 <html>
     <?php
-        afficheHead("Mesdemandes");
+        afficheHead("Mes demandes");
     ?>
 
     <body>
         <?php
             $nbrlignes = 16;
         
-            afficheBarre("Mesdemandes");
+            afficheBarre("Mes demandes");
             echo '<div class="groupe2">';
             echo '<div class="margin">';
             afficheNumeros($nbrlignes,"demandes");

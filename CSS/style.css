@@ -89,13 +89,13 @@ body {
 
 @media (max-width:350px) {
     .iconeicone {
-        font-size: 20px;/*Pour ne pas afficher un élément*/
+        font-size: 20px;
     }
 }
 
 @media (max-width:442px) {
     #supprimercompte, #voirmesdemandes {
-        font-size: 14px;/*Pour ne pas afficher un élément*/
+        font-size: 14px;
     }
 }
 
@@ -157,8 +157,6 @@ body {
         font-size: 20px;
     }
 }
-
-/*CONNEXION*/
 
 .champs {
     display: flex;
@@ -342,14 +340,14 @@ button {
     font-size: 13px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    table-layout: auto;
-    white-space: nowrap;
+    table-layout: auto;/*Plus le contenu est large plus la colonne s'élargit*/
+    white-space: nowrap;/*Empeche le contenu de sauter de lignes*/
     overflow-x: auto; /*Active le scroll horizontal quand l'écran est réduit*/
 }
 
 .tableadmin tr th, .tableadmin tr td {
     border: 1px solid black;
-    padding: 1px 2px; /* Réduit l'espace au minimum */
+    padding: 1px 2px;
     text-align: center;
     width: fit-content;
 }
@@ -468,8 +466,7 @@ button {
 
 .radio {
     display: flex;
-    flex-wrap: wrap;
-    /*Pour que les fils sautent une ligne quand l'espace est insuffisant*/
+    flex-wrap: wrap;/*Pour que les fils sautent une ligne quand l'espace est insuffisant*/
     justify-content: center;
     align-items: center;
     width: 100%;

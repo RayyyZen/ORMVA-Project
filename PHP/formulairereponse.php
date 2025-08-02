@@ -18,6 +18,7 @@
     }
 
     date_default_timezone_set('Africa/Casablanca');
+    //Heure locale
     $statement->execute([
         ':reponse' => $_POST['reponse'],
         ':statut' => $statut,

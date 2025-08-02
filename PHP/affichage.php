@@ -13,10 +13,10 @@
         if($page == "Connexion" || $page == "Inscription" || $page == "Compte"){
             echo '<script src="../JavaScript/mdp.js" type="text/javascript"></script>';
         }
-        if($page == "Compte" || $page == "Admin" || $page == "Mesdemandes"){
+        if($page == "Compte" || $page == "Admin" || $page == "Mes demandes"){
             echo '<script src="../JavaScript/informations.js" type="text/javascript"></script>';
         }
-        if($page == "Demande" || $page == "Voirdemande"){
+        if($page == "Demande" || $page == "Voir demande"){
             echo '<script src="../JavaScript/demande.js" type="text/javascript"></script>';
         }
     }
@@ -124,7 +124,7 @@
                         $util2 = $tmp;
                     }
                 }
-                else{
+                else{//Pour trier de cette façon admins => utilisateurs => bannis
                     $role1 = $util1['role'];
                     $role2 = $util2['role'];
                     if($value["$role2"] < $value["$role1"]){
@@ -231,6 +231,7 @@
             $statement->execute([
                 ':id' => $_SESSION['id'],
             ]);
+            //Collect de toutes les données des demandes de l'utilisateur connecté
         }
 
         $demandes = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -284,6 +285,7 @@
         }
 
         $ordreinverse = array_reverse($demandes);
+        //Pour que la première ligne contienne la demande la plus récente
 
         foreach($ordreinverse as $demande){
             echo '<tr data-extra="'.$demande['type'].'_'.$demande['statut'].'">';
@@ -303,6 +305,7 @@
                 }
                 $i = 1;
             }
+            //Pour que le type ait la première lettre en majuscule et le reste en minuscule
             echo '<td class="nepasremplir"><input type="text" value="'.$type.'" disabled></td>';
             if($demande['statut'] == "En attente"){
                 $style = "attente";

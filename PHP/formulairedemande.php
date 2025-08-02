@@ -10,6 +10,7 @@
     $sql = "INSERT INTO demandes (id_utilisateur, titre, `description`, reponse, datedemande, `type`, statut) VALUES (:id_utilisateur, :titre, :ddescription, :reponse, :datedemande, :ttype, :statut)";
     $statement = $mysqldb->prepare($sql);
     date_default_timezone_set('Africa/Casablanca');
+    //Heure locale
     $statement->execute([
         ':id_utilisateur' => $_SESSION['id'],
         ':titre' => $_POST['titre'],

@@ -21,7 +21,6 @@
             <div class="titreparagraphe">A savoir !</div>
             Cette application web a pour but de pemettre aux employés de l'Office Régional de Mise en Valeur Agricole du Souss Massa de soumettre des demandes
             internes (Demande de matériel, intervention technique, information...) et de permettre à des responsables de suivre ces demandes ainsi que les valider ou les refuser
-
         </div>
     </body>
 </html>

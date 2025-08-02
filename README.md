@@ -4,7 +4,7 @@
 
 ## Introduction
 
-**ORMVA-Projet** est un projet développé en HTML, CSS, PHP, JavaScript, AJAX et SQL lors de mon stage à l'Office Régional de Mise en Valeur Agricole du Souss Massa (ORMVASM). Le projet consiste en la création d’un site web dynamique qui permet aux employés de l'institut d'effectuer des demandes internes (Demande d'information, intervention technique, demande de matériel) et qui permet aux responsables de les visualiser et de les traiter.
+**ORMVA-Projet** est un projet développé en HTML, CSS, PHP, JavaScript, AJAX et SQL lors de mon stage à l'Office Régional de Mise en Valeur Agricole du Souss Massa (ORMVASM). Le projet consiste en la création d’une application web dynamique qui permet aux employés de l'institut d'effectuer des demandes internes (Demande d'information, intervention technique, demande de matériel) et qui permet aux responsables de les suivre et de les traiter.
 
 ## Prérequis
 
@@ -48,24 +48,24 @@ php -S localhost:8000
 ### 5. Accéder à l'application :
 - Accédez à votre navigateur et entrez l'URL suivante : 
 ```sh
-http://localhost:8000/Pages/index.php
+http://localhost/Pages/index.php
 ```
 Ou Bien
 ```sh
-http://localhost/Pages/index.php
+http://localhost:8000/Pages/index.php
 ```
 
 ## Fonctionnalités principales
 
-L'application web comporte deux interfaces différentes : interface agent pour les utilisateurs et interface responsable pour les admins, ainsi que les fonctionnalités suivantes :
+L'application web comporte deux interfaces différentes : une interface agent pour les utilisateurs et une interface responsable pour les admins, ainsi que les fonctionnalités suivantes :
 
 ### Connexion et inscription
 
-Afin de pouvoir accéder à l'une des interfaces, il faut dabord s'inscrire ou se connecter si vous avez déjà un compte. L'inscription vous met automatiquement le rôle d'utilisateur vous permettant d'effectuer vos demandes et de les visualiser.
+Afin de pouvoir accéder à l'une des interfaces, il faut dabord s'inscrire ou se connecter si vous avez déjà un compte. L'inscription vous met automatiquement le rôle d'utilisateur, vous permettant d'effectuer des demandes et de les visualiser.
 
 ### Compte
 
-Après la connexion à votre compte, il vous est possible d'accéder à la page contenant vos informations saisies lors de l'inscription. Sur cette page vous pouvez effectuer des modifications asynchrone (nom, prénom...), ainsi que voir l'historique de vos demandes et supprimer votre compte en cas de besoin. 
+Après la connexion à votre compte, il vous est possible d'accéder à la page contenant vos informations saisies lors de l'inscription. Sur cette page vous pouvez effectuer des modifications de façon asynchrone, ainsi que voir l'historique de vos demandes et supprimer votre compte en cas de besoin. 
 
 ### Demande
 
@@ -77,11 +77,11 @@ Sur la page "Mes demandes", l'utilisateur peut consulter l'historique de ses dem
 
 ### Voir demande
 
-En cliquant sur une demande de la page "Mes demandes" il est possible de voir les détails de celle ci. Si l'utilisateur est un administrateur et que la demande est "En attente" ce dernier peut la valider ou la refuser en ajoutant un commentaire.
+En cliquant sur une demande de la page "Mes demandes" il est possible de voir les détails de celle ci. Si l'utilisateur est un administrateur et que la demande est "En attente" ce dernier peut la valider ou la refuser et ajouter un commentaire.
 
 ### Admin
 
-La page administrateur permet aux responsables de voir tous les utilisateurs ainsi que de modifier leurs informations ainsi que leur statut de façon asynchrone sans recharger la page.
+La page administrateur permet aux responsables de voir tous les utilisateurs ainsi que de modifier leurs informations et leur statut de façon asynchrone, sans recharger la page.
 
 ## Informations importantes
 

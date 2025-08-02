@@ -18,7 +18,6 @@ function sauvegarder(champ,sauvegarder,annuler,modifier,chargement){//Fonction q
     }
     //Avant de sauvegarder ca checke les erreurs dues aux attributs de la balise input comme le regex et les maxlength ...
 
-
     if(window.XMLHttpRequest){
         var xhr = new XMLHttpRequest();
     }
@@ -338,11 +337,13 @@ function affichepages(tableau,nbrlignes,numeropage){//Affiche un nombre fixe d'u
         document.getElementById("gauche").classList.add("numero");
         document.getElementById("gauche").classList.remove("numerobutton");
     }
+
     var id=1;
     while(document.getElementById(id) && !document.getElementById(id).hidden){
         id++;
     }
     id--;
+    //Pour savoir le numéro de la dernière page
 
     if(numeropage < id){
         document.getElementById("droite").disabled = false;
@@ -387,7 +388,7 @@ function pagedroite(tableau,nbrlignes){//Fonction qui passe à la page de droite
     }
 }
 
-function filtrer(nbrlignes,numeropage){
+function filtrer(nbrlignes,numeropage){//Fonction qui filtre et affiche le tableau des demandes en fonction dy type et du statut choisi
     var select = document.getElementsByTagName("select");
     var lignes = document.getElementsByTagName("tr");
     var i;

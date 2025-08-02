@@ -19,15 +19,9 @@
 
     if($utilisateur !== false){
         echo "email";
+        //Ca veut dire que le mail est lié à un autre compte
         exit(0);
     }
-
-    $sql = "SELECT * FROM utilisateurs WHERE id = :id";
-    $statement = $mysqldb->prepare($sql);
-    $statement->execute([
-        ':id' => $_POST['id'],
-    ]);
-    $utilisateur = $statement->fetch(PDO::FETCH_ASSOC);
     
     $sql = "UPDATE utilisateurs SET `role` = :rrole, civilite = :civilite, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone WHERE id = :id";
     $statement = $mysqldb->prepare($sql);

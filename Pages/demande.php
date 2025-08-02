@@ -53,8 +53,8 @@
 
             for(i=0;i<textarea.length;i++){
                 textarea[i].addEventListener("input", function () {
-                    this.style.height = "auto"; // Réinitialiser la hauteur
-                    this.style.height = this.scrollHeight + "px"; // Ajuster à la taille du contenu
+                    this.style.height = "auto"; //Réinitialiser la hauteur
+                    this.style.height = this.scrollHeight + "px"; //Ajuster à la taille du contenu
                 });
             }
         </script>
