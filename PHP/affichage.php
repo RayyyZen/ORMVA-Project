@@ -25,7 +25,7 @@
         echo '
         <div class="barre">
             <a href="../Pages/index.php" class="lienlogo">
-                <img src="../Data/logoSansTitre" class="logo">
+                <img src="../Data/logoSansTitre.png" class="logo">
                 <div class="titre" id="titresite">ORMVASM</div>
             </a>
             <div class="icones">
